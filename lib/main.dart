@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Pilih yang sesuai lokasi WelcomeScreen milik kalian ↓
-// Kalau welcome_screen.dart ada di screens/welcome:
+// HOME PAGE PUNYAMU
+import 'screens/homepage/homepage.dart';
+
+// PAGE PUNYA TEMAN
 import 'screens/welcome/welcome_screen.dart';
-
-// Kalau welcome_screen di login-register, pakai ini (ganti yang atas):
-// import 'screens/login-register/welcome_screen.dart';
-
 import 'screens/chat/chat_list_screen.dart';
 import 'screens/search/search_page.dart';
 
@@ -23,17 +21,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
+      // THEME
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
         useMaterial3: false,
       ),
 
-      // HALAMAN YANG PERTAMA MUNCUL
-      home: const SearchPage(),
+      // HALAMAN AWAL (boleh ganti kalau mau Welcome/Home langsung)
+      home: const WelcomeScreen(),
 
-      // Semua route lain tetap ada
+      // ROUTE TAMBAHAN
       routes: {
-        '/welcome': (context) => const WelcomeScreen(),
+        '/homepage': (context) => const HomePage(),
+        '/search': (context) => const SearchPage(),
         '/chat': (context) => const ChatListScreen(),
       },
     );
