@@ -21,13 +21,13 @@ class ChatListScreen extends StatelessWidget {
       },
       {
         'name': 'Harya',
-        'message': 'Gimana jadinya?',
+        'message': 'P',
         'time': '1.30 PM',
-        'unread': 10,
+        'unread': 5,
       },
       {
         'name': 'Adlina',
-        'message': 'Terima kasih kak! seru sekali!',
+        'message': 'Terima kasih kak! seru sekali!!',
         'time': '5.40 PM',
         'unread': 0,
       },
@@ -40,73 +40,128 @@ class ChatListScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFBFC9FF), // ungu muda
-      body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFBFC9FF),
-                Color(0xFFB3C4FF),
-                Color(0xFFA2B5FF),
-              ],
-            ),
-          ),
-          child: Column(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Column(
             children: [
-              const SizedBox(height: 16),
-              // Judul "Chat"
-              const Text(
-                'Chat',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Search bar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Container(
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.95),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: const Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Cari chat',
-                            border: InputBorder.none,
-                          ),
+              // HEADER UNGU + CHAT TITLE + SEARCH
+              SizedBox(
+                height: 160,
+                child: Stack(
+                  children: [
+                    // bg ungu
+                    Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xFFBFC9FF),
+                            Color(0xFFA8B6FF),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(24),
+                          bottomRight: Radius.circular(24),
                         ),
                       ),
-                      Icon(Icons.search),
-                    ],
-                  ),
+                    ),
+
+                    // 🎨 elemen lengkung putih di kiri atas
+                    Positioned(
+                      top: -80,
+                      left: -120,
+                      child: Container(
+                        width: 260,
+                        height: 260,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.18),
+                          borderRadius: BorderRadius.circular(260),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: -40,
+                      left: -60,
+                      child: Container(
+                        width: 220,
+                        height: 220,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.26),
+                          borderRadius: BorderRadius.circular(220),
+                        ),
+                      ),
+                    ),
+
+                    // konten header: title + search
+                    SafeArea(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 12),
+                          const Text(
+                            'Chat',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          // SEARCH BAR – KOTAK
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 24),
+                            child: Container(
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.8),
+                                  width: 2,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.08),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: const Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        hintText: 'Cari chat',
+                                        border: InputBorder.none,
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.search),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-              const SizedBox(height: 16),
-
-              // List chat
+              // AREA PUTIH + LIST CHAT
               Expanded(
                 child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent,
-                  ),
+                  color: Colors.white,
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
-                      vertical: 8,
+                      vertical: 12,
                     ),
                     itemCount: chats.length,
                     itemBuilder: (context, index) {
@@ -131,12 +186,15 @@ class ChatListScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 16),
-              // NOTE: bottom navigation aslinya ada, tapi dihandle screen lain.
             ],
           ),
-        ),
+
+          // NAVBAR DI BAWAH
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: _BottomNavBar(),
+          ),
+        ],
       ),
     );
   }
@@ -160,7 +218,7 @@ class _ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
@@ -169,29 +227,26 @@ class _ChatItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 8,
+                color: Colors.black.withOpacity(0.06),
+                blurRadius: 6,
                 offset: const Offset(0, 4),
               ),
             ],
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: Row(
             children: [
-              // Avatar
               CircleAvatar(
-                radius: 22,
+                radius: 24,
                 backgroundColor: Colors.white,
                 child: ClipOval(
                   child: Image.asset(
-                    'assets/logo.png', // ganti dengan foto tutor kalian
+                    'assets/logo.png', // ganti nanti
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               const SizedBox(width: 12),
-
-              // Nama + message
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,26 +264,23 @@ class _ChatItem extends StatelessWidget {
                       message,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 13,
-                        color: Colors.grey.shade700,
+                        color: Color(0xFF6E6E8F),
                       ),
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(width: 8),
-
-              // Waktu + unread badge
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     time,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 11,
-                      color: Colors.grey.shade700,
+                      color: Color(0xFF6E6E8F),
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -256,6 +308,77 @@ class _ChatItem extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _BottomNavBar extends StatelessWidget {
+  const _BottomNavBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 72,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: 32,
+            color: Colors.white,
+          ),
+          Positioned(
+            bottom: 10,
+            left: 40,
+            right: 40,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                // pill ungu
+                Container(
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFBFC9FF),
+                    borderRadius: BorderRadius.circular(23),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.12),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.home_rounded,
+                          color: Colors.white, size: 24),
+                      Icon(Icons.person_rounded,
+                          color: Colors.white, size: 24),
+                    ],
+                  ),
+                ),
+
+                // cekungan putih di tengah
+                Positioned(
+                  top: -12,
+                  child: Container(
+                    width: 80,
+                    height: 26,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(36),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
