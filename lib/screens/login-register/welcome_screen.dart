@@ -12,75 +12,77 @@ class WelcomeScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFBFD4FF),
-              Color(0xFF7BA2FF),
-            ],
+          image: DecorationImage(
+            image: AssetImage("assets/background-tutor.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // LOGO
-            Column(
-              children: [
-                Image.asset(
-                  "assets/logo.png",
-                  width: 160,
-                ),
-                const SizedBox(height: 10),
-              ],
+            const SizedBox(height: 1), // space tipis di atas
+
+            /// ===========================
+            ///               LOGO
+            /// ===========================
+            Image.asset(
+              "assets/logo.png",
+              width: 160,
             ),
 
-            const SizedBox(height: 180),
-
-            // BUTTON CREATE ACCOUNT
-            SizedBox(
-              width: 260,
-              height: 48,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const RegisterScreen(),
+            /// ===========================
+            ///     BUTTON + LOGIN TEXT
+            /// ===========================
+            Padding(
+              padding: const EdgeInsets.only(bottom: 40),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 260,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RegisterScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Create Account",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ),
-                  );
-                },
-                child: const Text(
-                  "Create Account",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 14),
-
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const LoginScreen(),
                   ),
-                );
-              },
-              child: const Text(
-                "Already have an account? Login",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  decoration: TextDecoration.underline,
-                ),
+
+                  const SizedBox(height: 14),
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Already have an account? Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
