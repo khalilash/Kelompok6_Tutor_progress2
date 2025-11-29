@@ -18,6 +18,7 @@ import 'screens/sesi/tutor_selesai_page.dart';
 import 'screens/sesi/review_page.dart';
 import 'screens/sesi/calling_page.dart';
 import 'screens/sesi/detail_sesi_selesai_page.dart';
+import 'splash_page.dart';
 
 
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
 
 
       // HALAMAN PERTAMA
-      home: const WelcomeScreen(),
+      home: const SplashPage(),
 
 
       // ROUTES
