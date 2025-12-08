@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'screens/login/login_screen.dart';
 import 'screens/register/register_screen.dart';
 
 <<<<<<< HEAD
 =======
 
+=======
+import 'screens/login-register/login_screen.dart';
+import 'screens/login-register/register_screen.dart';
+import 'screens/login-register/welcome_screen.dart';
+>>>>>>> 84ee1e4e3ce65bac2e22c58ea818124edbf3d213
 
 
 >>>>>>> 12cb3cf4df5c60b0349f3ca2fd53d915b5a620cc
@@ -51,8 +57,16 @@ class _SplashPageState extends State<SplashPage>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 4000), // 4 detik total
+      duration: const Duration(milliseconds: 4000),
     )..forward();
+
+    // AUTO PINDAH SETELAH 4 DETIK
+    Future.delayed(const Duration(milliseconds: 4000), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+      );
+    });
   }
 
   @override
@@ -77,16 +91,14 @@ class _SplashPageState extends State<SplashPage>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              AppColors.gradientTop,
-              AppColors.gradientBottom,
-            ],
+            colors: [AppColors.gradientTop, AppColors.gradientBottom],
           ),
         ),
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
             final t = _controller.value.clamp(0.0, 1.0);
+
 
             // ============== FRAME 1: DOT ==============
             double dotOpacity;
@@ -100,9 +112,11 @@ class _SplashPageState extends State<SplashPage>
               dotOpacity = 0.0;
             }
 
+
             double dotScale = (t <= 0.2)
                 ? Curves.easeOutBack.transform(_segment(t, 0.0, 0.2))
                 : 1.0;
+
 
             // ============== FRAME 2: TUTOR + DOT ==============
             double textOpacity;
@@ -118,12 +132,21 @@ class _SplashPageState extends State<SplashPage>
               textOpacity = 0.0;
             }
 
-            double textInProgress =
-                (t >= 0.2 && t <= 0.35) ? _segment(t, 0.2, 0.35) : 1.0;
-            double textDx =
-                lerpD(-30.0, 0.0, Curves.easeOut.transform(textInProgress));
-            double textDy =
-                lerpD(40.0, 0.0, Curves.easeOut.transform(textInProgress));
+
+            double textInProgress = (t >= 0.2 && t <= 0.35)
+                ? _segment(t, 0.2, 0.35)
+                : 1.0;
+            double textDx = lerpD(
+              -30.0,
+              0.0,
+              Curves.easeOut.transform(textInProgress),
+            );
+            double textDy = lerpD(
+              40.0,
+              0.0,
+              Curves.easeOut.transform(textInProgress),
+            );
+
 
             // ============== FRAME 3 & 4: RIPPLE ==============
             double rippleOpacity;
@@ -139,14 +162,21 @@ class _SplashPageState extends State<SplashPage>
               rippleOpacity = 0.0;
             }
 
-            double rippleProgress =
-                Curves.easeOutCubic.transform(_segment(t, 0.4, 0.8));
+
+            double rippleProgress = Curves.easeOutCubic.transform(
+              _segment(t, 0.4, 0.8),
+            );
+
 
             // ============== FRAME 5: FINAL SCREEN ==============
             double finalProgress = _segment(t, 0.8, 1.0);
             double finalOpacity = Curves.easeIn.transform(finalProgress);
-            double finalOffsetY =
-                lerpD(40.0, 0.0, Curves.easeOut.transform(finalProgress));
+            double finalOffsetY = lerpD(
+              40.0,
+              0.0,
+              Curves.easeOut.transform(finalProgress),
+            );
+
 
             return Stack(
               children: [
@@ -155,6 +185,7 @@ class _SplashPageState extends State<SplashPage>
                   opacity: finalOpacity,
                   child: _buildBackgroundDecor(size),
                 ),
+
 
                 // ripple (frame 3–4)
                 if (rippleOpacity > 0)
@@ -165,6 +196,7 @@ class _SplashPageState extends State<SplashPage>
                       painter: RipplePainter(progress: rippleProgress),
                     ),
                   ),
+
 
                 // dot (frame 1)
                 Align(
@@ -177,6 +209,7 @@ class _SplashPageState extends State<SplashPage>
                     ),
                   ),
                 ),
+
 
                 // TUTOR + dot kanan (frame 2)
                 Align(
@@ -206,6 +239,7 @@ class _SplashPageState extends State<SplashPage>
                   ),
                 ),
 
+
                 // logo card (frame 5)
                 Align(
                   alignment: Alignment.center,
@@ -217,6 +251,7 @@ class _SplashPageState extends State<SplashPage>
                     ),
                   ),
                 ),
+
 
                 // button + text bawah (frame 5)
                 Align(
@@ -237,6 +272,7 @@ class _SplashPageState extends State<SplashPage>
     );
   }
 
+
   Widget _buildMainDot({double radius = 28}) {
     return Container(
       width: radius * 2,
@@ -247,6 +283,7 @@ class _SplashPageState extends State<SplashPage>
       ),
     );
   }
+
 
   Widget _buildBackgroundDecor(Size size) {
     return Stack(
@@ -282,6 +319,7 @@ class _SplashPageState extends State<SplashPage>
       ],
     );
   }
+
 
   Widget _buildLogoCard() {
     return Container(
@@ -343,6 +381,7 @@ class _SplashPageState extends State<SplashPage>
     );
   }
 
+
   Widget _buildBottomSection() {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -355,9 +394,7 @@ class _SplashPageState extends State<SplashPage>
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => const RegisterScreen(),
-              ),
+              MaterialPageRoute(builder: (_) => const RegisterScreen()),
             );
           },
           child: Container(
@@ -410,9 +447,7 @@ class _SplashPageState extends State<SplashPage>
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const LoginScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
                 );
               },
               child: const Text(
@@ -437,26 +472,32 @@ class _SplashPageState extends State<SplashPage>
 class RipplePainter extends CustomPainter {
   final double progress;
 
+
   RipplePainter({required this.progress});
+
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height * 0.55);
     final baseRadius = size.width * 0.18;
 
+
     final fillPaint = Paint()..style = PaintingStyle.fill;
     final strokePaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
+
     final innerRadius = baseRadius * (0.8 + 0.5 * progress);
     fillPaint.color = AppColors.rippleFill.withOpacity(0.95);
     canvas.drawCircle(center, innerRadius, fillPaint);
+
 
     const ringCount = 3;
     for (int i = 0; i < ringCount; i++) {
       final tt = (i + 1) / ringCount;
       final radius = innerRadius + baseRadius * 1.4 * progress * tt;
+
 
       Color c;
       if (i == 0) {
@@ -467,9 +508,11 @@ class RipplePainter extends CustomPainter {
         c = AppColors.rippleRingMain.withOpacity(0.6);
       }
 
+
       strokePaint.color = c.withOpacity(0.7 - 0.15 * i);
       canvas.drawCircle(center, radius, strokePaint);
     }
+
 
     final outerRadius = innerRadius + baseRadius * 2.3 * progress;
     strokePaint
@@ -478,32 +521,36 @@ class RipplePainter extends CustomPainter {
     canvas.drawCircle(center, outerRadius, strokePaint);
   }
 
+
   @override
   bool shouldRepaint(covariant RipplePainter oldDelegate) {
     return oldDelegate.progress != progress;
   }
 }
 
+
 class CornerCirclePainter extends CustomPainter {
   final Color baseColor;
   final bool extraInner;
 
-  CornerCirclePainter({
-    required this.baseColor,
-    this.extraInner = false,
-  });
+
+  CornerCirclePainter({required this.baseColor, this.extraInner = false});
+
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width * 0.5;
 
+
     final paintStroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5
       ..color = baseColor;
 
+
     canvas.drawCircle(center, radius, paintStroke);
+
 
     if (extraInner) {
       canvas.drawCircle(
@@ -514,11 +561,13 @@ class CornerCirclePainter extends CustomPainter {
     }
   }
 
+
   @override
   bool shouldRepaint(covariant CornerCirclePainter oldDelegate) {
     return oldDelegate.baseColor != baseColor ||
         oldDelegate.extraInner != extraInner;
   }
+<<<<<<< HEAD
 }
 
 // ===================== RIPPLE PAINTER =====================
@@ -611,3 +660,6 @@ class CornerCirclePainter extends CustomPainter {
         oldDelegate.extraInner != extraInner;
   }
 }
+=======
+}
+>>>>>>> 84ee1e4e3ce65bac2e22c58ea818124edbf3d213
