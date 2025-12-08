@@ -61,31 +61,27 @@ class ChatRoomScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                GsmColors.purpleLight,
-                GsmColors.purpleDark,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Column(
-            children: [
-              // AppBar custom
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      body: Column(
+        children: [
+
+          // ================= HEADER UNGU =================
+          Material(
+            elevation: 6, // INI SHADOW UTAMA
+            shadowColor: Colors.black.withOpacity(0.25),
+            child: Container(
+              color: const Color(0xFFB8C1F0),
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 16,
+                bottom: 14,
+              ),
+              child: SafeArea(
+                bottom: false,
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
-                      ),
+                      icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
                       onPressed: () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 4),
@@ -125,78 +121,72 @@ class ChatRoomScreen extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+          ),
 
-              // Detail Pesanan + label "Today"
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DetailOrderCard(tutorName: tutorName),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          'Today',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            color: GsmColors.textPurple,
-                            fontWeight: FontWeight.w500,
+          // ================= AREA CHAT =================
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/background_tutor.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Column(
+                children: [
+
+                  const SizedBox(height: 12),
+
+                  // ================= TODAY =================
+                  Center(
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(18),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 6,
+                            offset: const Offset(0, 3),
                           ),
+                        ],
+                      ),
+                      child: Text(
+                        'Today',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: GsmColors.textPurple,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
 
-              // Chat list
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withOpacity(0.15),
-                        Colors.white,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                  const SizedBox(height: 10),
+
+                  // ================= CHAT LIST =================
+                  Expanded(
+                    child: ListView.builder(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final msg = messages[index];
+                        return _ChatBubble(message: msg);
+                      },
                     ),
                   ),
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 8),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      final msg = messages[index];
-                      return _ChatBubble(message: msg);
-                    },
-                  ),
-                ),
+
+                  // ================= INPUT BAR =================
+                  const _ChatInputBar(),
+                ],
               ),
-
-              // Input bar
-              const _ChatInputBar(),
-            ],
+            ),
           ),
-        ),
-      ),
-
-      // NAVBAR GLOBAL
-      bottomNavigationBar: TutorBottomNavBar(
-        currentIndex: 1,
-        onTap: (index) {
-          // di ChatRoom, biarkan nav bar yang handle home/chat
-        },
+        ],
       ),
     );
   }
