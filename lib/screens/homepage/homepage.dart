@@ -6,8 +6,6 @@ import '../widgets/trial_popup.dart';
 import '../search/search_page.dart';
 import '../booking/tutor_list_screen.dart';
 import '../sesi/detail_sesi_page.dart';
-
-// SESUAIKAN kalau category_page.dart kamu taruh di folder lain
 import '/screens/category_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -215,11 +213,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
 
-                          // ===== TUTOR PILIHAN =====
+                          // ===== TUTOR PILIHAN / AKTIVITAS =====
                           const SizedBox(height: 22),
 
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: const [
                               Text(
                                 "Aktivitas",
@@ -241,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
 
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 10),
 
                           const BigTutorCard(
                             name: "Khalila",
@@ -311,208 +309,205 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _banner() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 0),
-    child: Column(
-      children: [
-        SizedBox(
-          height: 140,
-          child: PageView.builder(
-            controller: _bannerController,
-            onPageChanged: (i) =>
-                setState(() => _bannerIndex = i % 3),
-            itemBuilder: (context, i) {
-              final index = i % 3;
+    return Padding(
+      padding: const EdgeInsets.only(top: 0),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 160,
+            child: PageView.builder(
+              controller: _bannerController,
+              onPageChanged: (i) => setState(() => _bannerIndex = i % 3),
+              itemBuilder: (context, i) {
+                final index = i % 3;
 
-              // --- teks judul & subjudul ---
-              final String title;
-              final String subtitle;
+                // teks judul & subjudul
+                final String title;
+                final String subtitle;
 
-              if (index == 0) {
-                // BANNER KATEGORI
-                title = "Cari Kategori";
-                subtitle = "Jelajahi semua bidang";
-              } else if (index == 1) {
-                title = "Cari Tutor Terbaik";
-                subtitle = "Mulai sesi tutor pilihanmu";
-              } else {
-                title = "Belajar Jadi Mudah";
-                subtitle = "Cek tutor favoritmu";
-              }
+                if (index == 0) {
+                  title = "Cari Kategori";
+                  subtitle = "Jelajahi semua bidang";
+                } else if (index == 1) {
+                  title = "Cari Tutor Terbaik";
+                  subtitle = "Mulai sesi tutor pilihanmu";
+                } else {
+                  title = "Belajar Jadi Mudah";
+                  subtitle = "Cek tutor favoritmu";
+                }
 
-              // --- gambar & warna sama seperti sebelumnya ---
-              final image = index == 0
-                  ? "assets/tutor1_naura.png"
-                  : index == 1
-                      ? "assets/tutor2_naura.png"
-                      : "assets/tutor3.png";
+                // gambar & warna
+                final image = index == 0
+                    ? "assets/banner oren.png"
+                    : index == 1
+                        ? "assets/banner pink.png"
+                        : "assets/banner ungu.png";
 
-              final bg = index == 0
-                  ? const Color(0xFFFFA975)
-                  : index == 1
-                      ? const Color(0xFFFEB8C3)
-                      : const Color(0xFFBCC6F6);
+                final bg = index == 0
+                    ? const Color(0xFFFFA975)
+                    : index == 1
+                        ? const Color(0xFFFEB8C3)
+                        : const Color(0xFFBCC6F6);
 
-              final blob = index == 0
-                  ? const Color(0xFFD65609)
-                  : index == 1
-                      ? const Color(0xFFFFACB9)
-                      : const Color(0xFF566CD8);
+                final blob = index == 0
+                    ? const Color(0xFFD65609)
+                    : index == 1
+                        ? const Color(0xFFFFACB9)
+                        : const Color(0xFF566CD8);
 
-              final textColor =
-                  index == 2 ? const Color(0xFF566CD8) : const Color(0xFFD65609);
+                final textColor = index == 2
+                    ? const Color(0xFF566CD8)
+                    : const Color(0xFFD65609);
 
-              // --- onTap beda untuk banner 0 ---
-              VoidCallback onTap;
-              if (index == 0) {
-                // ke page kategori
-                onTap = () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const CategoryPage(),
-                    ),
-                  );
-                };
-              } else {
-                // ke list tutor
-                onTap = () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const TutorListScreen(),
-                    ),
-                  );
-                };
-              }
+                // onTap beda
+                VoidCallback onTap;
+                if (index == 0) {
+                  onTap = () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const CategoryPage(),
+                      ),
+                    );
+                  };
+                } else {
+                  onTap = () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const TutorListScreen(),
+                      ),
+                    );
+                  };
+                }
 
-              return _bannerCard(
-                title,
-                subtitle,
-                image,
-                bg,
-                blob,
-                textColor,
-                onTap,
-              );
-            },
+                return _bannerCard(
+                  title,
+                  subtitle,
+                  image,
+                  bg,
+                  blob,
+                  textColor,
+                  onTap,
+                );
+              },
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        _dots(),
-      ],
-    ),
-  );
-}
-
+          const SizedBox(height: 8),
+          _dots(),
+        ],
+      ),
+    );
+  }
 
   Widget _bannerCard(
-  String title,
-  String subtitle,
-  String image,
-  Color bg,
-  Color blob,
-  Color textColor,
-  VoidCallback onTapCekSekarang,
-) {
-  return Container(
-    margin: const EdgeInsets.only(right: 6),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(26),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.15),
-          blurRadius: 8,
-          offset: const Offset(0, 4),
-        )
-      ],
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(26),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(color: bg),
-
-          Positioned(
-            top: -40,
-            left: -30,
-            child: _Blob(color: Colors.white.withOpacity(0.22), size: 180),
-          ),
-          Positioned(
-            top: 20,
-            right: -60,
-            child: _Blob(color: blob.withOpacity(0.22), size: 240),
-          ),
-          Positioned(
-            bottom: -40,
-            left: 30,
-            child: _Blob(color: blob.withOpacity(0.14), size: 200),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        subtitle,
-                        style: TextStyle(
-                          color: textColor.withOpacity(0.9),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      // BUTTON CEK SEKARANG (CLICKABLE)
-                      GestureDetector(
-                        onTap: onTapCekSekarang,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 5),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: textColor, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
+    String title,
+    String subtitle,
+    String image,
+    Color bg,
+    Color blob,
+    Color textColor,
+    VoidCallback onTapCekSekarang,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(right: 6),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(26),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          )
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(26),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(color: bg),
+            Positioned(
+              top: -40,
+              left: -30,
+              child: _Blob(color: Colors.white.withOpacity(0.22), size: 180),
+            ),
+            Positioned(
+              top: 20,
+              right: -60,
+              child: _Blob(color: blob.withOpacity(0.22), size: 240),
+            ),
+            Positioned(
+              bottom: -40,
+              left: 30,
+              child: _Blob(color: blob.withOpacity(0.14), size: 200),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: textColor,
                           ),
-                          child: Text(
-                            "Cek Sekarang",
-                            style: TextStyle(
-                              color: textColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          subtitle,
+                          style: TextStyle(
+                            color: textColor.withOpacity(0.9),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: onTapCekSekarang,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: textColor, width: 1.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              "Cek Sekarang",
+                              style: TextStyle(
+                                color: textColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Image.asset(image, width: 105, fit: BoxFit.contain),
-              ],
+                  Image.asset(
+                    image,
+                    width: 150,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
-
-
+    );
+  }
 
   Widget _dots() {
     return Row(
@@ -596,7 +591,7 @@ class _LihatSemuaTutorBtn extends StatelessWidget {
   }
 }
 
-// ================== REKOMENDASI CARD BESAR ==================
+// ================== AKTIVITAS CARD BESAR ==================
 class BigTutorCard extends StatelessWidget {
   final String name;
   final String subject;
@@ -614,35 +609,38 @@ class BigTutorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(top: 6),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 14),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFC8A2),
-        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xFFFFA975), // oren muda
+        borderRadius: BorderRadius.circular(26),
       ),
       child: Stack(
         children: [
+          // wave lembut kanan
           Positioned(
-            right: -20,
-            top: 30,
+            right: -40,
+            top: -10,
             child: Container(
-              width: 160,
-              height: 120,
+              width: 220,
+              height: 150,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.22),
-                borderRadius: BorderRadius.circular(120),
+                color: Colors.white.withOpacity(0.23),
+                borderRadius: BorderRadius.circular(180),
               ),
             ),
           ),
+
+          // isi utama
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 name,
                 style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFB24A00),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFFD65609), // oren tua
                 ),
               ),
               const SizedBox(height: 4),
@@ -650,64 +648,76 @@ class BigTutorCard extends StatelessWidget {
                 subject,
                 style: const TextStyle(
                   fontSize: 16,
-                  color: Color(0xFFB24A00),
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFFD65609),
                 ),
               ),
               const SizedBox(height: 8),
               Row(
-                children: [
+                children: const [
                   Text(
-                    rating.toString(),
-                    style: const TextStyle(
-                      color: Colors.white,
+                    "4.9",
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: Colors.white,
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  const Icon(Icons.star, color: Colors.yellow, size: 16),
+                  SizedBox(width: 4),
+                  Icon(Icons.star, size: 16, color: Colors.yellow),
                 ],
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               Text(
                 price,
                 style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF343446),
                 ),
               ),
-              const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const DetailSesiPage(),
+              const SizedBox(height: 10),
+
+              // tombol Detail Sesi aja
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const DetailSesiPage(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
+                        vertical: 10,
                       ),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFAEC2FF),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Text(
-                      "Detail Sesi",
-                      style: TextStyle(
+                      decoration: BoxDecoration(
                         color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.06),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: const Text(
+                        "Detail Sesi",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B6B6B),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
