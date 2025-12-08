@@ -14,41 +14,55 @@ class AppColors {
   static const blue6 = Color(0xFFCBD2FE);
   static const greyShadow = Color(0xFFD9D9D9);
 
+
   static const gradientTop = blue4;
   static const gradientBottom = blue2;
 
+
   static const dotMain = blue6;
+
 
   static const rippleFill = blue5;
   static const rippleRingMain = blue3;
   static const rippleRingStrong = blue1;
 
+
   static const logoCardBase = blue5;
+
+
   static const buttonBg = darkText;
 }
 
+
 double lerpD(double a, double b, double t) => a + (b - a) * t;
+
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
+
 
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
 
+
 class _SplashPageState extends State<SplashPage>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
+
   @override
   void initState() {
     super.initState();
+
 
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 4000),
     )..forward();
 
+
+    // AUTO PINDAH SETELAH 4 DETIK
     Future.delayed(const Duration(milliseconds: 4000), () {
       Navigator.pushReplacement(
         context,
@@ -57,11 +71,13 @@ class _SplashPageState extends State<SplashPage>
     });
   }
 
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
 
   double _segment(double t, double start, double end) {
     if (t <= start) return 0.0;
@@ -69,9 +85,11 @@ class _SplashPageState extends State<SplashPage>
     return (t - start) / (end - start);
   }
 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
 
     return Scaffold(
       body: Container(

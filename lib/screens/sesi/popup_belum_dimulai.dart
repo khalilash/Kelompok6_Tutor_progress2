@@ -66,7 +66,7 @@ class PopupBelumDimulai extends StatelessWidget {
 
 
                     const Text(
-                      'Sesi Anda belum dimulai',
+                      'Sesi bisa dimulai sekarang',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class PopupBelumDimulai extends StatelessWidget {
 
                     const SizedBox(height: 8),
                     const Text(
-                      'Gabung sesi sesuai jadwal yang dipilih.',
+                      'Mau bergabung?',
                       textAlign: TextAlign.center,
                     ),
 
