@@ -7,6 +7,7 @@ import 'screens/homepage/homepage.dart';
 
 
 // FILE TEMAN (LOKASI BARU)
+import 'screens/login-register/welcome_screen.dart';
 import 'screens/chat/chat_list_screen.dart';
 import 'screens/search/search_page.dart';
 import 'screens/sesi/detail_sesi_page.dart';

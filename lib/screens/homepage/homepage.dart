@@ -4,6 +4,7 @@ import 'dart:async';
 import '../widgets/trial_popup.dart';
 import '../search/search_page.dart';
 import '../booking/tutor_list_screen.dart';
+import '../sesi/detail_sesi_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

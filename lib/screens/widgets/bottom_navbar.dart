@@ -4,6 +4,7 @@ import '../chat/chat_list_screen.dart';
 class TutorBottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
+  final Function(int) onTap;
 
   const TutorBottomNavBar({
     super.key,
@@ -18,6 +19,7 @@ class TutorBottomNavBar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
+
           // BACKGROUND PUTIH BAWAH
           Container(
             height: 50,
@@ -75,6 +77,10 @@ class TutorBottomNavBar extends StatelessWidget {
         // LOGIKA NAVIGASI DASAR
         if (index == 1) {
           // pindah ke daftar chat
+        onTap(index);
+
+        // JIKA TOMBOL CHAT DITEKAN
+        if (index == 1) {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -90,6 +96,11 @@ class TutorBottomNavBar extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 260),
         curve: Curves.easeOutCubic,
+        }
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 260),
+        curve: Curves.easeOutCubic, // GERAKAN LEMBUT
         transform: isActive
             ? (Matrix4.identity()..translate(0.0, -10.0))
             : Matrix4.identity(),
@@ -103,6 +114,7 @@ class TutorBottomNavBar extends StatelessWidget {
         child: Icon(
           icon,
           size: 30,
+          size: 30, // ICON LEBIH BESAR
           color: isActive
               ? const Color(0xFF6A6FE9)
               : Colors.white,
