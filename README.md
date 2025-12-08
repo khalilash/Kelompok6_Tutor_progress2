@@ -1,16 +1,29 @@
-# tutor
+# 📚 TUTOR – Aplikasi Pencarian & Pemesanan Tutor Belajar
 
-A new Flutter project.
+TUTOR adalah aplikasi mobile berbasis Flutter yang dirancang untuk membantu mahasiswa menemukan tutor yang sesuai preferensi mereka, melihat jadwal, memesan sesi mentoring, dan berkomunikasi langsung melalui fitur chat. Aplikasi ini dibangun untuk menciptakan pengalaman belajar yang lebih efektif, fleksibel, dan profesional.
 
-## Getting Started
+## 📌 Anggota Kelompok
+- Khalila Shafarayhani Atletiko – 5026231167
+- Nabila Rahadatul Aisy Koestriyaningrum  - 5026231025
+- Alisha Rafimalia - 5026231202
+- Naura Salsabila - 5026231173
+- Jasmine Fathina Hakim - 50262331017
+- Sahilah Amru Yumnatusta - 5026231182
+- Mochammad Zhulmi Danovanz Hidanasukha - 5026231172
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 🧩 Teknologi yang Digunakan
+- **Flutter** – sebagai platform utama  
+- **Dart** – bahasa pemrograman  
+- **Figma** – desain UI/UX  
+- **VS Code / Android Studio** – pengembangan & emulator  
+- **Mock Data / Local Data** – untuk tahap awal sebelum integrasi backend  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Getting Started
+
+Project ini merupakan aplikasi Flutter yang dapat dijalankan di emulator atau perangkat fisik.
+
+### **1. Clone Repository**
+```sh
+git clone https://github.com/khalilash/Kelompok6_Tutor_progress2.git
