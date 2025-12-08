@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/register/register_screen.dart';
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 12cb3cf4df5c60b0349f3ca2fd53d915b5a620cc
 class AppColors {
   static const white = Color(0xFFFFFFFF);
   static const darkText = Color(0xFF343446);
@@ -298,6 +304,7 @@ class _SplashPageState extends State<SplashPage>
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+<<<<<<< HEAD
         children: const [
           // Sesuaikan path logo di pubspec.yaml: assets/logo.png
           // atau ubah jadi Image.asset kalau mau dinamis
@@ -311,6 +318,17 @@ class _SplashPageState extends State<SplashPage>
           ),
           SizedBox(height: 18),
           Text(
+=======
+        children: [
+          Image.asset(
+            'assets/logo.png',
+            width: 64,
+            height: 64,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(height: 18),
+          const Text(
+>>>>>>> 12cb3cf4df5c60b0349f3ca2fd53d915b5a620cc
             'TUTOR',
             style: TextStyle(
               fontFamily: 'Poppins',
@@ -329,7 +347,10 @@ class _SplashPageState extends State<SplashPage>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+<<<<<<< HEAD
         // Tombol CREATE ACCOUNT → RegisterScreen
+=======
+>>>>>>> 12cb3cf4df5c60b0349f3ca2fd53d915b5a620cc
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -366,10 +387,14 @@ class _SplashPageState extends State<SplashPage>
             ),
           ),
         ),
+<<<<<<< HEAD
 
         const SizedBox(height: 12),
 
         // Teks "Already have an account? Login"
+=======
+        const SizedBox(height: 12),
+>>>>>>> 12cb3cf4df5c60b0349f3ca2fd53d915b5a620cc
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -405,6 +430,94 @@ class _SplashPageState extends State<SplashPage>
         ),
       ],
     );
+  }
+} //  ⬅⬅⬅ TAMBAHKAN INI: menutup class _SplashPageState
+
+
+class RipplePainter extends CustomPainter {
+  final double progress;
+
+  RipplePainter({required this.progress});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height * 0.55);
+    final baseRadius = size.width * 0.18;
+
+    final fillPaint = Paint()..style = PaintingStyle.fill;
+    final strokePaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+
+    final innerRadius = baseRadius * (0.8 + 0.5 * progress);
+    fillPaint.color = AppColors.rippleFill.withOpacity(0.95);
+    canvas.drawCircle(center, innerRadius, fillPaint);
+
+    const ringCount = 3;
+    for (int i = 0; i < ringCount; i++) {
+      final tt = (i + 1) / ringCount;
+      final radius = innerRadius + baseRadius * 1.4 * progress * tt;
+
+      Color c;
+      if (i == 0) {
+        c = AppColors.rippleRingMain;
+      } else if (i == 1) {
+        c = AppColors.rippleRingStrong;
+      } else {
+        c = AppColors.rippleRingMain.withOpacity(0.6);
+      }
+
+      strokePaint.color = c.withOpacity(0.7 - 0.15 * i);
+      canvas.drawCircle(center, radius, strokePaint);
+    }
+
+    final outerRadius = innerRadius + baseRadius * 2.3 * progress;
+    strokePaint
+      ..color = AppColors.white.withOpacity(0.95)
+      ..strokeWidth = 1.3;
+    canvas.drawCircle(center, outerRadius, strokePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant RipplePainter oldDelegate) {
+    return oldDelegate.progress != progress;
+  }
+}
+
+class CornerCirclePainter extends CustomPainter {
+  final Color baseColor;
+  final bool extraInner;
+
+  CornerCirclePainter({
+    required this.baseColor,
+    this.extraInner = false,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width * 0.5;
+
+    final paintStroke = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5
+      ..color = baseColor;
+
+    canvas.drawCircle(center, radius, paintStroke);
+
+    if (extraInner) {
+      canvas.drawCircle(
+        center,
+        radius * 0.7,
+        paintStroke..color = baseColor.withOpacity(0.7),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CornerCirclePainter oldDelegate) {
+    return oldDelegate.baseColor != baseColor ||
+        oldDelegate.extraInner != extraInner;
   }
 }
 
