@@ -4,7 +4,7 @@ TUTOR adalah aplikasi mobile berbasis **Flutter** yang dirancang untuk membantu 
 
 ---
 
-## 👥 Anggota Kelompok 6
+## Anggota Kelompok 6
 
 - Khalila Shafarayhani Atletiko – 5026231167  
 - Nabila Rahadatul Aisy Koestriyaningrum – 5026231025  
@@ -31,7 +31,8 @@ Saat ini aplikasi masih menggunakan **mock/local data** dan dapat dikembangkan l
 ## 🧩 Teknologi yang Digunakan
 
 - **Flutter** – framework utama pengembangan aplikasi mobile  
-- **Dart** – bahasa pemrograman  
+- **Dart** – bahasa pemrograman
+- **Supabase** – backend as a service untuk autentikasi dan pengelolaan data
 - **Figma** – perancangan UI/UX  
 - **VS Code / Android Studio** – editor & emulator pengembangan  
 - **Mock Data / Local Data** – simulasi data awal sebelum integrasi backend  
