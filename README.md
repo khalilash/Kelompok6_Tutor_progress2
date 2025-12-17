@@ -61,7 +61,7 @@ assets/
 
 ```sh
 # Clone repo
-git clone https://github.com/khalilash/Kelompok6_Tutor_progress2.git 
+git clone https://github.com/khalilash/Kelompok6_A_Tutor.git 
 cd Kelompok6_Tutor_progress2
 
 # Install dependency
