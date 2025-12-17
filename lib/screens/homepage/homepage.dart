@@ -344,9 +344,12 @@ class _HomePageState extends State<HomePage> {
       ),
 
       // NAVBAR
-      bottomNavigationBar: TutorBottomNavBar(
-        currentIndex: navIndex,
-        onTap: (i) => setState(() => navIndex = i),
+      bottomNavigationBar: Container(
+        color: Colors.white, // ← INI KUNCINYA
+        child: TutorBottomNavBar(
+          currentIndex: navIndex,
+          onTap: (i) => setState(() => navIndex = i),
+        ),
       ),
     );
   }
