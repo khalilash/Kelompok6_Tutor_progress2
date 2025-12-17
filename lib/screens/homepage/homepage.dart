@@ -345,7 +345,7 @@ class _HomePageState extends State<HomePage> {
 
       // NAVBAR
       bottomNavigationBar: Container(
-        color: Colors.white, // ← INI KUNCINYA
+        color: Colors.white, 
         child: TutorBottomNavBar(
           currentIndex: navIndex,
           onTap: (i) => setState(() => navIndex = i),
